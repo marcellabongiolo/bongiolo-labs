@@ -1,0 +1,2 @@
+service_name  = "bongiolo-platform-service"
+external_port = 8000
