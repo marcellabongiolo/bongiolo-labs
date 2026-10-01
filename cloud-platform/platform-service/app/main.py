@@ -5,12 +5,15 @@ from fastapi import FastAPI
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
 
+from app.observability import request_observability
+
 
 BASE_DIR = Path(__file__).resolve().parent
 DB_PATH = Path("/app/data/platform.db")
 WEB_PATH = BASE_DIR / "web" / "index.html"
 
 app = FastAPI(title="Bongiolo Platform Service", version="1.0.0")
+app.middleware("http")(request_observability)
 
 
 class Task(BaseModel):
