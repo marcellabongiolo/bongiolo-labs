@@ -4,7 +4,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - platform-data:/app/app
+      - platform-data:/app/data
 
 volumes:
   platform-data:
