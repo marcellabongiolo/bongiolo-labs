@@ -20,8 +20,8 @@
 
 ## Phase 3 — Cloud & platform
 
-- [ ] Containerize services
-- [ ] Create CI/CD pipelines
+- [x] Containerize services
+- [x] Create CI/CD pipelines
 - [ ] Add observability
 - [ ] Deploy a cloud-based service
 - [ ] Document infrastructure architecture
