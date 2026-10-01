@@ -24,7 +24,7 @@
 - [x] Create CI/CD pipelines
 - [x] Add observability
 - [ ] Deploy a cloud-based service
-- [ ] Document infrastructure architecture
+- [x] Document infrastructure architecture
 
 ## Phase 4 — Research
 
