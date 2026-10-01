@@ -1,16 +1,18 @@
+import os
 from pathlib import Path
 import sqlite3
 
-from fastapi import FastAPI
-from fastapi.responses import FileResponse
-from pydantic import BaseModel
+from fastapi import FastAPI, HTTPException
+from fastapi.responses import FileResponse, Response
+from prometheus_client import CONTENT_TYPE_LATEST, generate_latest
+from pydantic import BaseModel, Field
 
 from app.observability import request_observability
 from app.logging_config import configure_logging
 
 
 BASE_DIR = Path(__file__).resolve().parent
-DB_PATH = Path("/app/data/platform.db")
+DB_PATH = Path(os.getenv("PLATFORM_DB_PATH", str(BASE_DIR / "platform.db")))
 WEB_PATH = BASE_DIR / "web" / "index.html"
 
 configure_logging()
@@ -20,10 +22,11 @@ app.middleware("http")(request_observability)
 
 
 class Task(BaseModel):
-    title: str
+    title: str = Field(min_length=1)
 
 
 def init_db() -> None:
+    DB_PATH.parent.mkdir(parents=True, exist_ok=True)
     with sqlite3.connect(DB_PATH) as connection:
         connection.execute(
             "CREATE TABLE IF NOT EXISTS tasks "
@@ -51,6 +54,11 @@ def info() -> dict[str, str]:
     return {"service": "bongiolo-platform-service", "version": "1.0.0"}
 
 
+@app.get("/metrics")
+def metrics() -> Response:
+    return Response(generate_latest(), media_type=CONTENT_TYPE_LATEST)
+
+
 @app.get("/api/tasks")
 def list_tasks() -> list[dict[str, object]]:
     with sqlite3.connect(DB_PATH) as connection:
@@ -65,7 +73,7 @@ def list_tasks() -> list[dict[str, object]]:
 def create_task(task: Task) -> dict[str, object]:
     title = task.title.strip()
     if not title:
-        return {"error": "title is required"}
+        raise HTTPException(status_code=400, detail="title is required")
 
     with sqlite3.connect(DB_PATH) as connection:
         cursor = connection.execute(
