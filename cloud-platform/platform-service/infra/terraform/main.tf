@@ -12,7 +12,7 @@ terraform {
 provider "docker" {}
 
 resource "docker_image" "platform_service" {
-  name = "bongiolo-platform-service:latest"
+  name = "${var.service_name}:latest"
 
   build {
     context    = "../../"
@@ -21,16 +21,16 @@ resource "docker_image" "platform_service" {
 }
 
 resource "docker_volume" "platform_data" {
-  name = "bongiolo-platform-data"
+  name = "${var.service_name}-data"
 }
 
 resource "docker_container" "platform_service" {
-  name  = "bongiolo-platform-service"
+  name  = var.service_name
   image = docker_image.platform_service.image_id
 
   ports {
     internal = 8000
-    external = 8000
+    external = var.external_port
   }
 
   volumes {
