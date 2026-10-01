@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bongiolo Platform Service</title>
+</head>
+<body>
+  <main>
+    <h1>Bongiolo Platform Service</h1>
+    <p>End-to-end cloud/platform engineering lab.</p>
+    <form id="task-form">
+      <input id="title" placeholder="New task" required>
+      <button type="submit">Create</button>
+    </form>
+    <ul id="tasks"></ul>
+  </main>
+
+  <script>
+    const list = document.querySelector("#tasks");
+    const form = document.querySelector("#task-form");
+    const input = document.querySelector("#title");
+
+    async function loadTasks() {
+      const response = await fetch("/api/tasks");
+      const tasks = await response.json();
+      list.innerHTML = tasks
+        .map(task => "<li>" + task.title + "</li>")
+        .join("");
+    }
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      await fetch("/api/tasks", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({title: input.value})
+      });
+      input.value = "";
+      await loadTasks();
+    });
+
+    loadTasks();
+  </script>
+</body>
+</html>
