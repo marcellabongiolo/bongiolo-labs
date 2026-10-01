@@ -1,28 +1,50 @@
 # Cloud & Platform
 
-This area will contain infrastructure and platform-engineering experiments.
+This area contains infrastructure and platform-engineering experiments.
 
-## Planned capabilities
+## Platform Service Lab
 
-- APIs
-- Containers
-- CI/CD
-- Infrastructure as Code
-- Observability
-- Distributed systems
-- Service reliability
+The first implemented service is an end-to-end FastAPI application with a browser interface, SQLite persistence, Docker packaging and automated GitHub Actions validation.
 
-## Target architecture
+Project: `cloud-platform/platform-service/`
 
-```text
-Developer
+Architecture:
+
+```
+Browser
    ↓
-Platform
-   ├── Build
+FastAPI
+   ↓
+SQLite
+   ↑
+Docker volume
+
+GitHub Push / PR
+   ↓
+GitHub Actions
+   ├── Install
    ├── Test
-   ├── Deploy
-   ├── Observe
-   └── Operate
+   └── Build image
 ```
 
-The platform layer will be introduced gradually as the products require it.
+## Implemented capabilities
+
+- API health checks
+- REST task endpoints
+- Browser interface
+- Persistent data volume
+- Automated tests
+- Docker image
+- Docker Compose
+- CI pipeline
+
+## Next platform capabilities
+
+- Observability and structured logging
+- Infrastructure as Code
+- Cloud deployment
+- Service metrics
+- Reliability documentation
+- Security hardening
+
+The platform layer will evolve as the lab's products require more infrastructure.
