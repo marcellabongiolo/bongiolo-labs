@@ -4,7 +4,7 @@ This area contains infrastructure and platform-engineering experiments.
 
 ## Platform Service Lab
 
-The first implemented service is an end-to-end FastAPI application with a browser interface, SQLite persistence, Docker packaging, automated GitHub Actions validation and Prometheus-compatible service metrics.
+The first implemented service is an end-to-end FastAPI application with a browser interface, SQLite persistence, Docker packaging, automated GitHub Actions validation, Prometheus-compatible service metrics and Terraform infrastructure definition.
 
 Project: `cloud-platform/platform-service/`
 
@@ -26,6 +26,14 @@ Observability middleware
    ├── Request count
    ├── Error count
    └── Request latency
+
+Terraform
+   ↓
+Docker image
+   ↓
+Platform service container
+   ↓
+Persistent Docker volume
 
 GitHub Push / PR
    ↓
@@ -50,10 +58,10 @@ GitHub Actions
 - Request-duration logging
 - Prometheus-compatible request metrics
 - HTTP 5xx error tracking
+- Terraform infrastructure definition
 
 ## Next platform capabilities
 
-- Infrastructure as Code
 - Cloud deployment
 - Metrics dashboard
 - Reliability documentation
