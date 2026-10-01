@@ -30,6 +30,7 @@ SQLite
 - Persistent task creation and listing
 - Minimal browser interface
 - Automated tests
+- Request IDs and request-duration logging
 - Containerized execution
 - CI validation
 
