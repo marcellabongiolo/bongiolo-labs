@@ -22,7 +22,7 @@
 
 - [x] Containerize services
 - [x] Create CI/CD pipelines
-- [ ] Add observability
+- [x] Add observability
 - [ ] Deploy a cloud-based service
 - [ ] Document infrastructure architecture
 
