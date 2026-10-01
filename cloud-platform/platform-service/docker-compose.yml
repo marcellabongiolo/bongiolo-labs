@@ -1,0 +1,10 @@
+services:
+  platform-service:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - platform-data:/app/app
+
+volumes:
+  platform-data:
