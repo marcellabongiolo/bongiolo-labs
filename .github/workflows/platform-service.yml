@@ -4,9 +4,15 @@ on:
   push:
     paths:
       - "cloud-platform/platform-service/**"
+      - ".github/workflows/platform-service.yml"
   pull_request:
     paths:
       - "cloud-platform/platform-service/**"
+      - ".github/workflows/platform-service.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   test:
